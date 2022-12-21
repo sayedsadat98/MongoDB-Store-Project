@@ -1,0 +1,47 @@
+# COMP 5305 project by Sayed Us Sadat
+
+#### Pre-requisites
+You can use a MongDB UI Client like MongoDB Compass
+Make sure your mongodb localhost port address is set to **27017**
+If not, please create an instance with the same port address using either MongoDB Atlas/Compass.
+- The project is done using the default port address which is  **27017**
+- The Database name is set to **onlinestore**. Please delete any existing database on your system to avoid errors
+
+#### Project architecture
+This project is done using Java Maven Project and Java MongoDB driver.
+The initial** MySQL dataset** has been converted first to JSON using a MySQL function. The code can be found in **dataset/jsonconverter.sql**
+
+The JSON file is then used to insert data on the MongoDB database. Check the code in **onlinestore_doc_schema.js**
+
+There is a **MongoMain.java** file which acts as the driver file for this project. If you just run the file and respond to the prompts of the output shell you can easily use the project.
+You may open each files to view the query design.
+
+In case of insertion queries, whenever a new data is inserted the new ID is set as the next available ID serially. For example, if the maximum existing ID of a collection is **2000** then the new data will have an ID of **2001**.
+
+To optimize the queries several strategies have been implemented. 
+For example, 
+- Indexes have been created on mostly used fields/row Support Queries
+- Number of Query Results used as input has been limited to Reduce memory usage
+- Projections and get() used to return relevant data only
+- Aggregation with lookup used where possible which is a more efficient than a find() search
+
+### Functionality of each package
+
+| FileName | Function |
+| ------ | ------ |
+| MongoMain | Main Driver file for the project |
+| Query_*[QUERY_NUMBER]* | Each Query is written in separate files which has names like QueryOne, QueryTwo...QueryTen |
+
+### Steps to run code
+Download the zip/clone the github repo on your local machine
+#####Creating a database, collections and then loading your dataset 
+- Navigate to **mongodb** directory
+- Run the **load_data.sh** shell script using terminal/VS Code
+
+##### Running Queries
+- Navigate to **Project Files** directory
+- Use a Java IDE and right-click to open the whole direct as a Java Project
+- This is a **Maven Java Project** so your IDE should be downloading the dependencies in *pom.xml* automatically as soon as you load the project
+- Open **MongoMain.java** and run the file and follow the steps in the command line/output shell
+
+
