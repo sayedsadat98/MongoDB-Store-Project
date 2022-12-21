@@ -1,0 +1,56 @@
+
+--Q1
+   SELECT Order.id, Order.saleDate, Order.totalPrice, Customer.id, Customer.name, Customer.contacts,
+   Item.id, Item.quantity, Product.id, Product.price, Product.description
+   FROM Order.consists_of.Item.references.Product,Order.requests.Customer
+   WHERE Order.id = ?; 
+
+--Q2
+    SELECT  Order.id, Order.saleDate, Order.totalPrice, Customer.id, Customer.name, Customer.contacts,
+     Payment.id, Payment.date
+    FROM Order.commits.Payment,Order.requests.Customer
+    WHERE Order.id = ?; 
+
+--Q3
+    SELECT Customer.id, Customer.name, Customer.contacts,
+    Order.id, Order.saleDate, Order.totalPrice, delivers.deliveryDate,
+     Carrier.id, Carrier.name, Carrier.contacts
+    FROM Customer.requests.Order.delivers.Carrier
+    WHERE Customer.id = ?; 
+
+--Q4
+ SELECT Customer.id, Customer.name, Customer.contacts,
+      Order.id, Order.saleDate, Order.totalPrice, Payment.id, Payment.date 
+    FROM Customer.requests.Order.commits.Payment 
+    WHERE Customer.id = ?; 
+
+--Q5
+  SELECT Customer.name, Customer.contacts, Order.id, Order.date, Order.deliveryDate, Order.totalPrice, Item.id, Item.quantity, Product.id, Product.price, Product.description           
+   FROM Customer.requests.Order.consists_of.Item.references.Product
+   WHERE Customer.id = ?
+
+--Q6
+SELECT  Product.id, Product.price, Product.description,
+    Order.id, Order.saleDate, Order.totalPrice, Item.id, Item.quantity
+   FROM Product.references.Item.consists_of.Order
+   WHERE Product.id = ?; 
+
+--Q7
+    SELECT Supplier.id, Supplier.name, Supplier.contacts,
+    Product.id, Product.price, Product.description , Category.id, Category.description
+    FROM Supplier.furnishes.Product.catalogues.Category
+    WHERE Supplier.id = ?; 
+
+-- place an order: insert an order and its relationships with customer and products (creating items).
+
+-- make a payment: insert a payment and its relationship with order.
+
+-- create a shipment: insert the relationship between order and carrier. 
+
+
+
+
+
+
+
+
